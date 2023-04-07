@@ -18,6 +18,8 @@ class PrototypesController < ApplicationController
 
   def show
     @prototype = Prototype.find(params[:id])
+    @comment = Comment.new
+    @comments = @prototype.comments.includes(:user)
   end
 
   def edit
@@ -39,7 +41,7 @@ class PrototypesController < ApplicationController
     redirect_to root_path
   end  
 
-end
+
 
  private
 
@@ -47,3 +49,4 @@ end
     params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
   end
 
+end
