@@ -9,7 +9,13 @@ class CommentsController < ApplicationController
     render "prototypes/show" # views/tweets/show.html.erbのファイルを参照しています。
    end
   end
-  
+
+  def show
+    @comment = Comment.new
+    @comments = @tweet.comments.includes(:user)
+  end
+
+
   private
   def comment_params
     params.require(:comment).permit(:content).merge(user_id: current_user.id, prototype_id: params[:prototype_id])
